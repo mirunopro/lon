@@ -12,7 +12,7 @@ body{background:#eef0f4;font-family:'Noto Sans JP',sans-serif;-webkit-text-size-
 #hdr{position:sticky;top:0;z-index:50;background:#1a1a2a;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 12px rgba(0,0,0,.4)}
 #hdr h1{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#fff}
 #hdr p{font-size:10px;color:#8888aa;letter-spacing:2px}
-.dot{width:8px;height:8px;border-radius:50%;background:#4af;animation:blink 2s infinite;flex-shrink:0}
+.dot{width:8px;height:8px;border-radius:50%;background:#4af;animation:blink 2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 #sub{padding:12px;font-size:14px;color:#666;text-align:center}
 #grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 12px 12px}
@@ -31,19 +31,12 @@ body{background:#eef0f4;font-family:'Noto Sans JP',sans-serif;-webkit-text-size-
 .ditem{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start}
 .db{color:#e74c3c;font-size:16px;flex-shrink:0;margin-top:3px}
 .dt{font-size:16px;color:#333;line-height:1.9}
-.news-item{display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px solid #f0f0f0;text-decoration:none;cursor:pointer}
-.news-item:last-child{border-bottom:none;padding-bottom:0}
-.news-item:active .nt{color:#e67e22}
-.nd{color:#e67e22;font-size:16px;flex-shrink:0;margin-top:3px}
-.nt{font-size:15px;color:#222;line-height:1.8;font-weight:700}
-.ns{font-size:11px;color:#aaa;margin-top:3px}
-.news-loading{font-size:13px;color:#aaa;padding:8px 0;letter-spacing:1px;animation:blink 1.5s infinite}
-.link-btn{display:flex;align-items:center;gap:10px;background:#f8f8f8;border-radius:8px;padding:12px 14px;margin-bottom:8px;border:1px solid #e0e0e0;text-decoration:none}
+.link-btn{display:flex;align-items:center;gap:12px;background:#f8f8f8;border-radius:8px;padding:14px;margin-bottom:10px;border:1px solid #e0e0e0;text-decoration:none;-webkit-tap-highlight-color:rgba(0,0,0,.08)}
 .link-btn:active{background:#efefef}
-.li{font-size:20px;flex-shrink:0}
-.ln{font-size:15px;color:#222;font-weight:700;line-height:1.4}
-.ld{font-size:12px;color:#888;margin-top:2px}
-.la{margin-left:auto;font-size:18px;color:#bbb}
+.li{font-size:22px;flex-shrink:0}
+.ln{font-size:16px;color:#111;font-weight:700;line-height:1.4}
+.ld{font-size:12px;color:#888;margin-top:3px;line-height:1.6}
+.la{margin-left:auto;font-size:20px;color:#bbb;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -60,75 +53,103 @@ body{background:#eef0f4;font-family:'Noto Sans JP',sans-serif;-webkit-text-size-
 <div id="emp">上のタイルをタップすると<br>業界インテリジェンスが表示されます</div>
 
 <script>
-var PROXY = "https://api.rss2json.com/v1/api.json?rss_url=";
-var FEEDS = {
-  lt:   PROXY + encodeURIComponent("https://longevity.technology/feed/") + "&count=8",
-  leaf: PROXY + encodeURIComponent("https://www.leafscience.org/feed/")  + "&count=8",
-  fa:   PROXY + encodeURIComponent("https://www.fightaging.org/feed.php")+ "&count=8",
-  pa:   PROXY + encodeURIComponent("https://peterattiamd.com/feed/")     + "&count=6",
-};
-
 var DATA = [
-  {id:"altos",  label:"Altos Labs",         kana:"アルトス・ラボ",           icon:"🔬", bg:"#1a2a4a",bc:"#2a4a8a",ac:"#2a5aaa",tc:"#7aaaff",
+  {id:"altos", label:"Altos Labs", kana:"アルトス・ラボ", icon:"🔬",
+   bg:"#1a2a4a",bc:"#2a4a8a",ac:"#2a5aaa",tc:"#7aaaff",
    ov:"Amazonのジェフ・ベゾスが出資した細胞リプログラミング企業。2022年に約30億ドルを調達し設立。山中伸弥ら世界トップの科学者を高報酬で迎え入れ。細胞を若い状態にリセットするリプログラミング技術を研究。",
    dr:["科学者を高額報酬で引き抜く知的資本争奪戦が業界で激化","ベゾスとザッカーバーグが別々の若返り企業に出資——IT億万長者の代理戦争","研究成果をほぼ公開しない秘密主義への批判","山中因子の特許をめぐる法的争いがくすぶっている"],
    ht:"年俸100万ドルの誘惑に揺れる博士研究員。金で引き抜かれた元同僚と残った研究者の対立。",
-   feed:"lt", site:{icon:"🏢",name:"Altos Labs 公式",url:"https://altoslabs.com",desc:"研究発表・採用情報"}},
-
-  {id:"turnbio",label:"Turnbio",             kana:"ターンバイオ",             icon:"🧴", bg:"#2a1a3a",bc:"#5a2a7a",ac:"#7a3aaa",tc:"#cc88ff",
+   links:[
+     {icon:"🏢",name:"Altos Labs 公式サイト",url:"https://altoslabs.com",desc:"研究発表・採用情報"},
+     {icon:"📰",name:"Longevity Technology — Altos Labs記事",url:"https://longevity.technology/?s=altos+labs",desc:"専門メディアの最新記事一覧"},
+     {icon:"🔬",name:"Nature — Altos Labs論文検索",url:"https://www.nature.com/search?q=altos+labs",desc:"学術論文の最新一覧"}
+   ]},
+  {id:"turnbio", label:"Turnbio", kana:"ターンバイオ", icon:"🧴",
+   bg:"#2a1a3a",bc:"#5a2a7a",ac:"#7a3aaa",tc:"#cc88ff",
    ov:"皮膚細胞のリプログラミングに特化したスタートアップ。老化した皮膚細胞を若い状態に戻す技術を研究開発中。創傷治癒の加速と美容医療市場への参入を目指す。",
    dr:["医療か美容かで引き裂かれる創業者——命を救いたい科学者と儲けたいVCの衝突","大手化粧品企業による買収観測","臨床データの信憑性をめぐる論争","中国企業による類似技術開発の動き"],
    ht:"命を救いたい科学者と儲けたいVCの価値観衝突。医療か美容かで引き裂かれる創業者。",
-   feed:"leaf", site:{icon:"🏢",name:"Turnbio 公式",url:"https://www.turnbio.com",desc:"企業概要・研究内容"}},
-
-  {id:"func",   label:"Function Health",     kana:"ファンクション・ヘルス",   icon:"📊", bg:"#1a3a2a",bc:"#2a7a4a",ac:"#3aaa6a",tc:"#66ddaa",
+   links:[
+     {icon:"🏢",name:"Turnbio 公式サイト",url:"https://www.turnbio.com",desc:"企業概要・研究内容"},
+     {icon:"📰",name:"Longevity Technology — 皮膚再生記事",url:"https://longevity.technology/?s=skin+reprogramming",desc:"皮膚リプログラミングの最新記事一覧"},
+     {icon:"📰",name:"LEAF Science — 再生医療記事",url:"https://www.leafscience.org/?s=skin",desc:"再生医療の最新記事一覧"}
+   ]},
+  {id:"func", label:"Function Health", kana:"ファンクション・ヘルス", icon:"📊",
+   bg:"#1a3a2a",bc:"#2a7a4a",ac:"#3aaa6a",tc:"#66ddaa",
    ov:"医師Peter Attiaが関わる血液検査サービス。100種類以上のバイオマーカーを測定し生物学的年齢を可視化。年間499ドルでシリコンバレーのエリート層に人気。",
    dr:["集めた健康データは誰のものか——プライバシー問題","保険会社へのデータ流出リスク","金持ちだけが自分の状態を知れる健康格差","製薬会社によるデータ買収の可能性"],
    ht:"自分の余命を知ってしまった男。データを持つ企業と、それを狙う製薬会社の情報戦。",
-   feed:"pa", site:{icon:"🎙",name:"Peter Attia MD",url:"https://peterattiamd.com/articles/",desc:"長寿医療の最前線"}},
-
-  {id:"xp",     label:"XPRIZE",              kana:"エックスプライズ",         icon:"🏆", bg:"#3a2a1a",bc:"#8a5a2a",ac:"#aa7a3a",tc:"#ffcc77",
+   links:[
+     {icon:"🏢",name:"Function Health 公式",url:"https://www.functionhealth.com",desc:"サービス内容・料金"},
+     {icon:"🎙",name:"Peter Attia MD — 最新記事",url:"https://peterattiamd.com/articles/",desc:"長寿医療の専門家による最新記事"},
+     {icon:"📰",name:"Longevity Technology — バイオマーカー記事",url:"https://longevity.technology/?s=biomarker",desc:"バイオマーカー最新記事一覧"}
+   ]},
+  {id:"xp", label:"XPRIZE", kana:"エックスプライズ", icon:"🏆",
+   bg:"#3a2a1a",bc:"#8a5a2a",ac:"#aa7a3a",tc:"#ffcc77",
    ov:"XPRIZE財団が設立した老化逆転コンペティション。賞金総額1億ドル以上。筋力・認知・免疫機能を若返らせる技術を世界中のチームが競う。2023年開始。",
    dr:["賞金1億ドルをめぐる国際的な研究チームの競争","中国・米国・欧州の老化逆転ナショナリズム","倫理審査をめぐる各国チームの綱引き","勝った技術が世界を支配するパワーゲーム"],
    ht:"各国代表チームがそれぞれの思惑を持って戦う群像劇。スポーツ漫画的な構図が使える。",
-   feed:"leaf", site:{icon:"🏆",name:"XPRIZE Healthspan 公式",url:"https://www.xprize.org/prizes/healthspan",desc:"コンペ詳細・参加チーム"}},
-
-  {id:"cal",    label:"Calico",              kana:"キャリコ（グーグル系）",   icon:"🌐", bg:"#3a1a1a",bc:"#8a2a2a",ac:"#aa3a3a",tc:"#ff8888",
+   links:[
+     {icon:"🏆",name:"XPRIZE Healthspan 公式",url:"https://www.xprize.org/prizes/healthspan",desc:"コンペ詳細・参加チーム一覧"},
+     {icon:"📰",name:"Longevity Technology — XPRIZE記事",url:"https://longevity.technology/?s=xprize",desc:"XPRIZE最新記事一覧"},
+     {icon:"📰",name:"LEAF Science — 老化逆転記事",url:"https://www.leafscience.org/?s=rejuvenation",desc:"老化逆転研究の最新記事一覧"}
+   ]},
+  {id:"cal", label:"Calico", kana:"キャリコ（グーグル系）", icon:"🌐",
+   bg:"#3a1a1a",bc:"#8a2a2a",ac:"#aa3a3a",tc:"#ff8888",
    ov:"Google Alphabet傘下の長寿研究企業。2013年設立。AbbVieとの共同研究に合計15億ドル以上を投資。設立10年以上が経過するが研究内容を極秘にしており成果が見えにくい。",
    dr:["15億ドルを使って成果が見えない——株主への説明責任問題","Googleの本業と死の克服という崇高な目標の矛盾","ステルス運営への批判と研究者の流出","Alphabetの他事業との予算競争"],
    ht:"莫大な金と優秀な人材があっても死に勝てないという絶望感。巨人の内部腐敗を描くコーポレートドラマ。",
-   feed:"lt", site:{icon:"🏢",name:"Calico Labs 公式",url:"https://www.calicolabs.com",desc:"企業概要・研究発表"}},
-
-  {id:"ret",    label:"Retro Biosciences",   kana:"レトロ・バイオサイエンシズ",icon:"⚗️", bg:"#1a3a3a",bc:"#2a7a7a",ac:"#3aaa9a",tc:"#66dddd",
+   links:[
+     {icon:"🏢",name:"Calico Labs 公式",url:"https://www.calicolabs.com",desc:"企業概要・研究発表"},
+     {icon:"📰",name:"Longevity Technology — Calico記事",url:"https://longevity.technology/?s=calico",desc:"Calico最新記事一覧"},
+     {icon:"🔬",name:"PubMed — Calico論文",url:"https://pubmed.ncbi.nlm.nih.gov/?term=calico+aging&sort=date",desc:"最新の学術論文一覧"}
+   ]},
+  {id:"ret", label:"Retro Biosciences", kana:"レトロ・バイオサイエンシズ", icon:"⚗️",
+   bg:"#1a3a3a",bc:"#2a7a7a",ac:"#3aaa9a",tc:"#66dddd",
    ov:"OpenAI共同創業者のSam Altmanが個人で1億8000万ドルを出資した長寿スタートアップ。2021年設立。健康寿命を10年延ばすことをミッションにオートファジーと細胞リプログラミングを研究。",
    dr:["AIで世界を変えた男が次は死に挑む","1億8000万ドルを個人出資したSam Altmanの不死への執着","OpenAIとの利益相反——AI開発と長寿研究の両立","金持ちだけが若返れるという格差批判"],
    ht:"AI・若返り・宇宙と全部やろうとする神になりたい男の狂気と孤独。",
-   feed:"lt", site:{icon:"🏢",name:"Retro Biosciences 公式",url:"https://www.retrobiosciences.com",desc:"企業概要・研究内容"}},
-
-  {id:"tr",     label:"業界トレンド",         kana:"ぎょうかいトレンド",       icon:"📡", bg:"#2a2a1a",bc:"#7a7a2a",ac:"#9a9a3a",tc:"#dddd66",
+   links:[
+     {icon:"🏢",name:"Retro Biosciences 公式",url:"https://www.retrobiosciences.com",desc:"企業概要・研究内容"},
+     {icon:"📰",name:"Longevity Technology — Retro記事",url:"https://longevity.technology/?s=retro+biosciences",desc:"Retro最新記事一覧"},
+     {icon:"📰",name:"LEAF Science — オートファジー記事",url:"https://www.leafscience.org/?s=autophagy",desc:"オートファジー研究の最新記事"}
+   ]},
+  {id:"tr", label:"業界トレンド", kana:"ぎょうかいトレンド", icon:"📡",
+   bg:"#2a2a1a",bc:"#7a7a2a",ac:"#9a9a3a",tc:"#dddd66",
    ov:"2020年代のリジュビネーション業界は急拡大中。細胞リプログラミング・老化細胞除去（セノリティクス）・GLP-1薬の長寿応用・AIによる老化解析・エピジェネティック時計が主要トレンド。",
    dr:["老化=病気とFDAが認定するか否かで市場規模が激変","GLP-1薬の長寿への応用が注目","AIが生物学的年齢を高精度で測定できるようになった","中国政府が国家プロジェクトとして若返り研究を推進"],
    ht:"誰が最初に老化を制するかという戦いの全体像。ハゲタカ的なプロローグに使える。",
-   feed:"fa", site:{icon:"📰",name:"Fight Aging!",url:"https://www.fightaging.org",desc:"老化研究の最新動向（英語）"}},
-
-  {id:"mn",     label:"投資・資金調達",       kana:"とうし・しきんちょうたつ", icon:"💰", bg:"#2a1a2a",bc:"#7a2a6a",ac:"#9a3a8a",tc:"#ff88cc",
+   links:[
+     {icon:"📰",name:"Longevity Technology — 最新記事",url:"https://longevity.technology/news/",desc:"業界専門メディアの最新記事一覧"},
+     {icon:"📰",name:"LEAF Science — 最新記事",url:"https://www.leafscience.org/news/",desc:"老化研究科学ニュースの最新一覧"},
+     {icon:"📰",name:"Fight Aging! — 最新記事",url:"https://www.fightaging.org",desc:"老化研究の最新動向（英語）"}
+   ]},
+  {id:"mn", label:"投資・資金調達", kana:"とうし・しきんちょうたつ", icon:"💰",
+   bg:"#2a1a2a",bc:"#7a2a6a",ac:"#9a3a8a",tc:"#ff88cc",
    ov:"Longevity分野への投資が急増。Altos Labs約30億ドル、Sam Altman個人1億8000万ドルなど大型案件が相次ぐ。Amazon・Google・OpenAIの創業者が全員この分野に資金を投じている。",
    dr:["仮想通貨で稼いだ億万長者が若返り研究に資金を投入","死にたくない金持ちが作るバブルへの懸念","VCが老化産業の覇権を狙っている","投資回収の時間軸問題——技術実現は20年後、VCは5年で回収したい"],
    ht:"若返りバブルが弾けた後の逆張り視点。信じた投資家・研究者・患者が全員裏切られる瞬間。",
-   feed:"lt", site:{icon:"💼",name:"a16z Bio",url:"https://a16z.com/bio",desc:"a16zのバイオ投資情報"}}
+   links:[
+     {icon:"📰",name:"Longevity Technology — 投資記事",url:"https://longevity.technology/?s=funding",desc:"資金調達・投資の最新記事一覧"},
+     {icon:"💼",name:"a16z Bio — 最新記事",url:"https://a16z.com/bio",desc:"a16zのバイオ投資情報"},
+     {icon:"📰",name:"LEAF Science — 投資記事",url:"https://www.leafscience.org/?s=investment",desc:"Longevity投資の最新動向"}
+   ]}
 ];
 
-var sel=null, cache={};
+var sel=null;
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-function strip(s){return (s||'').replace(/<[^>]*>/g,'').replace(/&[^;]+;/g,' ').trim();}
 
 function renderGrid(){
   var g=document.getElementById('grid'); g.innerHTML='';
   DATA.forEach(function(t){
     var on=sel===t.id, el=document.createElement('div');
     el.className='tile';
-    el.style.cssText='background:'+(on?t.ac:t.bg)+';border-color:'+(on?t.tc:t.bc)+';box-shadow:'+(on?'0 4px 20px '+t.tc+'55':'0 2px 8px rgba(0,0,0,.25)')+';';
-    el.innerHTML='<div class="ti">'+t.icon+'</div><div class="tn" style="color:'+t.tc+'">'+esc(t.label)+'</div><div class="tk" style="color:'+(on?'rgba(255,255,255,.8)':'rgba(255,255,255,.45)')+'">（'+esc(t.kana)+'）</div>';
+    el.style.background=on?t.ac:t.bg;
+    el.style.borderColor=on?t.tc:t.bc;
+    el.style.boxShadow=on?'0 4px 20px '+t.tc+'55':'0 2px 8px rgba(0,0,0,.25)';
+    el.innerHTML='<div class="ti">'+t.icon+'</div>'
+      +'<div class="tn" style="color:'+t.tc+'">'+esc(t.label)+'</div>'
+      +'<div class="tk" style="color:'+(on?'rgba(255,255,255,.8)':'rgba(255,255,255,.45)')+'">（'+esc(t.kana)+'）</div>';
     el.onclick=function(){sel=(sel===t.id)?null:t.id; renderGrid(); renderDetail();};
     g.appendChild(el);
   });
@@ -140,60 +161,34 @@ function renderDetail(){
   var t=DATA.find(function(x){return x.id===sel;});
   emp.style.display='none'; det.style.display='block';
 
+  var drHTML=t.dr.map(function(n){
+    return '<div class="ditem"><span class="db">&#9654;</span><div class="dt">'+esc(n)+'</div></div>';
+  }).join('');
+
+  var linkHTML=t.links.map(function(lk){
+    return '<a class="link-btn" href="'+esc(lk.url)+'" target="_blank" rel="noreferrer">'
+      +'<span class="li">'+lk.icon+'</span>'
+      +'<div style="flex:1"><div class="ln">'+esc(lk.name)+'</div><div class="ld">'+esc(lk.desc)+'</div></div>'
+      +'<span class="la">&#8250;</span></a>';
+  }).join('');
+
   det.innerHTML=
     '<div class="dtop" style="background:'+t.ac+';margin-top:4px;box-shadow:0 4px 16px '+t.tc+'44">'
       +'<h2>'+t.icon+' '+esc(t.label)+'</h2><p>（'+esc(t.kana)+'）</p></div>'
-    // 概要
     +'<div class="card" style="border-left-color:'+t.tc+'">'
       +'<div class="ctitle" style="color:'+t.tc+';border-left-color:'+t.tc+'">概要</div>'
       +'<div class="ctext">'+esc(t.ov)+'</div></div>'
-    // 最新ニュース（RSS）
     +'<div class="card" style="border-left-color:#e67e22">'
-      +'<div class="ctitle" style="color:#e67e22;border-left-color:#e67e22">最新ニュース</div>'
-      +'<div id="rss-'+t.id+'" class="news-loading">&#9670; 記事を読み込み中...</div></div>'
-    // ドラマ
+      +'<div class="ctitle" style="color:#e67e22;border-left-color:#e67e22">最新記事を読む</div>'
+      +linkHTML+'</div>'
     +'<div class="card" style="border-left-color:#e74c3c">'
       +'<div class="ctitle" style="color:#e74c3c;border-left-color:#e74c3c">ドラマになる要素</div>'
-      +t.dr.map(function(n){return '<div class="ditem"><span class="db">&#9654;</span><div class="dt">'+esc(n)+'</div></div>';}).join('')+'</div>'
-    // ヒント
+      +drHTML+'</div>'
     +'<div class="card" style="background:#f0fff4;border-left-color:#27ae60">'
       +'<div class="ctitle" style="color:#27ae60;border-left-color:#27ae60">漫画キャラ・シーンのヒント</div>'
-      +'<div class="ctext" style="color:#1a4a2a">'+esc(t.ht)+'</div></div>'
-    // 公式サイト
-    +'<div class="card" style="border-left-color:#3498db">'
-      +'<div class="ctitle" style="color:#3498db;border-left-color:#3498db">公式サイト</div>'
-      +'<a class="link-btn" href="'+t.site.url+'" target="_blank" rel="noreferrer">'
-        +'<span class="li">'+t.site.icon+'</span>'
-        +'<div><div class="ln">'+esc(t.site.name)+'</div><div class="ld">'+esc(t.site.desc)+'</div></div>'
-        +'<span class="la">&#8250;</span></a></div>';
+      +'<div class="ctext" style="color:#1a4a2a">'+esc(t.ht)+'</div></div>';
 
   setTimeout(function(){det.scrollIntoView({behavior:'smooth',block:'start'});},50);
-  loadRSS(t);
-}
-
-function loadRSS(t){
-  if(cache[t.feed]){showRSS(t.id, cache[t.feed]); return;}
-  fetch(FEEDS[t.feed])
-    .then(function(r){return r.json();})
-    .then(function(d){
-      cache[t.feed]=d.items||[];
-      showRSS(t.id, cache[t.feed]);
-    })
-    .catch(function(){
-      var el=document.getElementById('rss-'+t.id);
-      if(el) el.innerHTML='<div style="font-size:13px;color:#e74c3c;padding:6px 0">読み込み失敗。公式サイトへどうぞ ↓</div>';
-    });
-}
-
-function showRSS(id, items){
-  var el=document.getElementById('rss-'+id); if(!el) return;
-  if(!items||!items.length){el.innerHTML='<div style="font-size:13px;color:#aaa">記事なし</div>'; return;}
-  el.innerHTML=items.slice(0,7).map(function(item){
-    return '<a class="news-item" href="'+esc(item.link||'#')+'" target="_blank" rel="noreferrer">'
-      +'<span class="nd">&#9670;</span>'
-      +'<div><div class="nt">'+esc(strip(item.title||''))+'</div>'
-      +'<div class="ns">'+(item.pubDate||'').slice(0,10)+'</div></div></a>';
-  }).join('');
 }
 
 renderGrid();
