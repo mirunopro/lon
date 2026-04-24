@@ -1,262 +1,122 @@
-import { useState } from “react”;
+<!DOCTYPE html>
 
-const INTEL = {
-altos: {
-label: “Altos Labs”,
-kana: “アルトス・ラボ”,
-icon: “🔬”,
-overview: `Amazonのジェフ・ベゾスらが出資した細胞リプログラミング企業。2022年に30億ドルを調達。山中伸弥ら世界トップの科学者を年俸100万ドル超で引き抜いた。目標は細胞を若い状態に「リセット」すること。`,
-news: [
-{ text: “Altos LabsがNature誌に細胞リプログラミングの部分的成功を発表。マウス実験で平均寿命25%延長を確認。” },
-{ text: “山中伸弥が顧問を退任。後継者をめぐる内部対立が噂される。” },
-{ text: “英国・ケンブリッジに新研究拠点を設立。欧州の研究者獲得競争が激化。” },
-{ text: “競合のRetro Biosciencesが類似特許を申請。特許係争に発展する可能性。” },
-],
-drama: [“科学者を金で囲い込む「知的資本争奪戦」が業界で激化”, “ベゾスとザッカーバーグが別々の若返り企業に出資——IT億万長者の代理戦争”, “研究成果をほぼ公開しない秘密主義——「金だけ使って何も出てこない」批判”, “山中因子の特許をめぐる法的争いがくすぶっている”],
-hint: “「金で引き抜かれた元同僚」と「残った研究者」の対立。年俸100万ドルの誘惑に揺れる博士研究員キャラ。”,
-},
-turnbio: {
-label: “Turnbio”,
-kana: “ターンバイオ”,
-icon: “🧴”,
-overview: `皮膚細胞のリプログラミングに特化したスタートアップ。老化した皮膚細胞を若い状態に戻す技術を開発中。創傷治癒の加速から始まり、美容医療市場への参入を狙う。市場規模は世界で1000億ドル超。`,
-news: [
-{ text: “シリーズBで8500万ドルを調達。評価額が10億ドルを突破しユニコーン入り。” },
-{ text: “LVMHグループが買収交渉を進めているとの報道。創業者は否定。” },
-{ text: “FDAが皮膚リプログラミング製品の審査カテゴリを新設。” },
-{ text: “中国の大手化粧品企業が類似技術の特許を複数申請。模倣品市場が懸念される。” },
-],
-drama: [”「医療か美容か」で引き裂かれる創業者——命を救いたい科学者と儲けたいVCの衝突”, “LVMH・エスティローダーなど大手化粧品企業が買収を狙っている”, “「本当に効くのか」臨床データの信憑性をめぐる論争”, “安価な類似品を中国企業が開発中という噂”],
-hint: “命を救いたい科学者と、儲けたいVCの価値観衝突シーン。「医療か美容か」で引き裂かれる創業者。”,
-},
-function: {
-label: “Function Health”,
-kana: “ファンクション・ヘルス”,
-icon: “📊”,
-overview: `Peter Attia（長寿医療の世界的権威）が関わる100種類以上の血液検査サービス。年間499ドルで生物学的年齢・臓器の健康状態を可視化。シリコンバレーのエリート層に爆発的人気。個人の健康データを大規模収集している。`,
-news: [
-{ text: “会員数が50万人を突破。データベースが医療研究の「金の山」として注目される。” },
-{ text: “大手保険会社が「保険料算定への活用」を検討中と報道。プライバシー団体が猛反発。” },
-{ text: “Peter Attiaが「5年以内にAIが個人の死期を90日以内の精度で予測できる」と発言。” },
-{ text: “競合のInsideTrackerとAncestryが統合サービスを発表。市場競争が激化。” },
-],
-drama: [“集めた血液・遺伝子データは誰のものか——プライバシー問題が浮上”, “保険会社へのデータ流出リスク（「不健康」と判定された人が不利益を受ける）”, “「健康格差」の拡大——金持ちだけが自分の死期を知れる社会”, “製薬会社がこのデータを欲しがって接触してきている”],
-hint: “「自分の余命を知ってしまった男」というキャラ。データを持つ企業と、それを狙う製薬会社の情報戦。”,
-},
-xprize: {
-label: “XPRIZE”,
-kana: “エックスプライズ”,
-icon: “🏆”,
-overview: `XPRIZE財団が設立した「老化逆転」コンペ。賞金総額1億ドル以上。世界中の研究チームが「筋力・認知・免疫機能を20年若返らせる」技術を競う。2023年に開始、2030年頃に結果が出る。`,
-news: [
-{ text: “参加チームが600チームを突破。日本からも東大・理研チームが参加。” },
-{ text: “中間審査で韓国チームが「認知機能15年若返り」の予備データを提出。世界が注目。” },
-{ text: “倫理委員会が一部チームの「人体実験手法」に警告。非公認試験が複数国で発覚。” },
-{ text: “中国政府系チームの参加をめぐり米国側が安全保障上の懸念を表明。排除の動き。” },
-],
-drama: [“賞金1億ドルをめぐる国際的な研究チームの激しい競争”, “中国・米国・欧州の「老化逆転ナショナリズム」——国家が裏で支援”, “倫理審査をすり抜けるため審査の緩い国で人体実験を行うチームの疑惑”, “「勝った技術が世界を支配する」というパワーゲーム”],
-hint: “競技形式なので「スポーツ漫画」的構図。各国代表チームがそれぞれの思惑を持って戦う群像劇。”,
-},
-calico: {
-label: “Calico”,
-kana: “キャリコ（グーグル系）”,
-icon: “🌐”,
-overview: `GoogleのAlphabet傘下の長寿研究企業。2013年設立、AbbVieと合計15億ドルを投資。設立から10年以上経つが目立った成果を出していないと批判される。研究内容を極秘にしており「ステルス企業」と呼ばれる。`,
-news: [
-{ text: “AbbVieとの共同研究契約が満了。更新交渉が難航しているとの報道。” },
-{ text: “主任科学者3名が相次いで退職。うち2名がAltos Labsへ移籍。” },
-{ text: “Alphabetが決算説明会でCalicoへの言及をゼロに。社内での優先度低下が示唆される。” },
-{ text: “「裸デバネズミの老化メカニズム解明」の論文を発表。市場は失望。” },
-],
-drama: [“10年・15億ドルを使って成果ゼロ——株主・社会への説明責任問題”, “Googleの本業（広告）と「死の克服」という崇高な目標の矛盾”, “研究者が次々と去っていき、内部崩壊の噂”, “Alphabetの他事業に予算を奪われる内部競争”],
-hint: “「莫大な金と優秀な人材があっても死に勝てない」という絶望感。Googleという巨人の内部腐敗を描くコーポレートドラマ。”,
-},
-retro: {
-label: “Retro Biosciences”,
-kana: “レトロ・バイオサイエンシズ”,
-icon: “⚗️”,
-overview: `OpenAI創業者のSam Altmanが個人で1億8000万ドルを出資した長寿スタートアップ。2021年設立。「人間の健康寿命を10年延ばす」をミッション。細胞自食作用（オートファジー）と血液若返りを研究。`,
-news: [
-{ text: “独自開発のオートファジー促進化合物「RB-01」が前臨床試験で良好な結果。” },
-{ text: “Sam AltmanがRetroとOpenAIを「統合する可能性」に言及。AI×若返りの融合に注目。” },
-{ text: “投資家向け資料が流出。「2035年までに若返り薬を市販化」という野心的目標が明らかに。” },
-{ text: “Altos Labsとの人材争奪が激化。上級研究員の引き抜き合戦が続く。” },
-],
-drama: [“AIで世界を変えた男が次は「死」に挑む——メディアの熱狂と批判”, “1億8000万ドルを個人で出したSam Altmanの「不死願望」の異常性”, “OpenAIとの利益相反——AI開発と長寿研究、どちらが本命か”, “「金持ちだけが若返れる」という格差問題への激しい批判”],
-hint: “AI・若返り・宇宙と全部やろうとする「神になりたい男」の狂気と孤独。”,
-},
-trend: {
-label: “業界トレンド”,
-kana: “ぎょうかいトレンド”,
-icon: “📡”,
-overview: `2024〜2025年、リジュビネーション業界への投資は年間60億ドル超に達した。主要トレンドは①細胞リプログラミング②老化細胞除去（セノリティクス）③GLP-1薬の長寿応用④AIによる老化解析⑤エピジェネティック時計。FDAが「老化は病気か」という定義問題に直面中。`,
-news: [
-{ text: “FDAが「老化の予防」を正式な適応症として認める審査基準を2025年末までに策定すると発表。” },
-{ text: “GLP-1薬（オゼンピック）の大規模研究で「心臓老化を5年遅らせる効果」が確認。製薬株が急騰。” },
-{ text: “中国・深センで「若返り特区」構想。規制を緩和し海外富裕層向けに臨床試験を解禁する計画。” },
-{ text: “Googleが老化解析AI「DeepAge」を発表。血液検査データだけで生物学的年齢を99%の精度で判定。” },
-],
-drama: [”「老化=病気」とFDAが認定するか否かで市場規模が10倍変わる”, “GLP-1が老化にも効くと判明——製薬会社が狂喜乱舞”, “AIが「あなたは何歳で死ぬ」を予測できるようになってきた”, “中国政府が若返り研究を国家プロジェクトに——米中技術戦争に発展”],
-hint: “「誰が最初に老化を制するか」という戦いの全体像。ハゲタカ的なプロローグに使える。”,
-},
-money: {
-label: “投資・資金調達”,
-kana: “とうし・しきんちょうたつ”,
-icon: “💰”,
-overview: `2023〜2024年の主要ディール：Altos Labs 30億ドル、BioAge Labs 1.7億ドル、NewLimit（Brian Armstrong個人出資）1億ドル超。Coinbase創業者、Amazon創業者、OpenAI創業者が全員「若返り」に賭けている。`,
-news: [
-{ text: “a16zが総額5億ドルの「Bio×Longevityファンド」を組成。業界最大規模。” },
-{ text: “Coinbase創業者Brian ArmstrongのNewLimitが追加資金調達。累計2億ドル超に。” },
-{ text: “ソフトバンクの孫正義が「若返りはAIの次の革命」と発言。日本企業への投資を示唆。” },
-{ text: “Vision Fundが若返りスタートアップへの10億ドル投資を検討中と報道。バブルを懸念する声も。” },
-],
-drama: [“仮想通貨で儲けた億万長者が若返り研究に流入——「暗号通貨→不死」という資金の流れ”, “「死にたくない金持ち」が作り出すバブル——実態のない企業への過剰投資”, “a16zがLongevityファンドを設立——VCが「老化産業」を支配しようとしている”, “投資回収の時間軸問題——若返り技術は20年後、VCは5年で回収したい”],
-hint: “「若返りバブルが弾けた後」を描く逆張り視点。信じた投資家・研究者・患者が全員裏切られる瞬間。”,
-},
-};
-
-const TILE_COLORS = [
-{ bg: “#1a2a4a”, border: “#2a4a8a”, active: “#2a5aaa”, text: “#7aaaff” },
-{ bg: “#2a1a3a”, border: “#5a2a7a”, active: “#7a3aaa”, text: “#cc88ff” },
-{ bg: “#1a3a2a”, border: “#2a7a4a”, active: “#3aaa6a”, text: “#66ddaa” },
-{ bg: “#3a2a1a”, border: “#8a5a2a”, active: “#aa7a3a”, text: “#ffcc77” },
-{ bg: “#3a1a1a”, border: “#8a2a2a”, active: “#aa3a3a”, text: “#ff8888” },
-{ bg: “#1a3a3a”, border: “#2a7a7a”, active: “#3aaa9a”, text: “#66dddd” },
-{ bg: “#2a2a1a”, border: “#7a7a2a”, active: “#9a9a3a”, text: “#dddd66” },
-{ bg: “#2a1a2a”, border: “#7a2a6a”, active: “#9a3a8a”, text: “#ff88cc” },
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>REJUVENATION WAR</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%;background:#eef0f4;font-family:'Noto Sans JP',sans-serif;color:#111;-webkit-text-size-adjust:100%}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+#header{position:sticky;top:0;z-index:50;background:#1a1a2a;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 12px rgba(0,0,0,.4)}
+#header h1{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:4px;color:#fff}
+#header p{font-size:12px;color:#8888aa;letter-spacing:3px;margin-top:-2px}
+.live{display:flex;align-items:center;gap:6px}
+.live-dot{width:9px;height:9px;border-radius:50%;background:#4af;animation:pulse 2s infinite}
+.live-label{font-size:12px;color:#8888aa;letter-spacing:2px}
+#hint{padding:14px 12px 6px;font-size:14px;color:#666;letter-spacing:1px;text-align:center}
+#grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 12px 12px}
+.tile{border-radius:12px;padding:20px 16px;cursor:pointer;text-align:left;transition:all .15s;border:2px solid transparent;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.tile-icon{font-size:34px;margin-bottom:10px}
+.tile-name{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;line-height:1.2;margin-bottom:6px}
+.tile-kana{font-size:14px;line-height:1.5}
+#detail{padding:0 12px 60px;display:none}
+.detail-title{border-radius:10px;padding:14px 16px;margin-bottom:14px}
+.detail-title-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:#fff}
+.detail-title-kana{font-size:15px;color:rgba(255,255,255,.8);margin-top:2px}
+.card{border-radius:10px;padding:16px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,.07);border-left-width:5px;border-left-style:solid}
+.card-title{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;margin-bottom:14px;padding-left:10px;border-left-width:3px;border-left-style:solid}
+.card-text{font-size:17px;line-height:2.1}
+.news-item{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start;background:#fff8f0;border:2px solid #f0c080;border-left:5px solid #e67e22;border-radius:8px;padding:13px 14px}
+.news-bullet{color:#e67e22;flex-shrink:0;font-size:20px;margin-top:2px}
+.news-text{font-size:17px;color:#333;line-height:2}
+.drama-item{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start}
+.drama-bullet{flex-shrink:0;font-size:20px;margin-top:2px;color:#e74c3c}
+.drama-text{font-size:17px;line-height:2;color:#333}
+#empty{padding:50px 24px;text-align:center;color:#aaa;font-size:16px;letter-spacing:1px;line-height:3}
+</style>
+</head>
+<body>
+<div id="header">
+  <div><h1>REJUVENATION WAR</h1><p>LONGEVITY INTELLIGENCE</p></div>
+  <div class="live"><div class="live-dot"></div><span class="live-label">LIVE</span></div>
+</div>
+<div id="hint">&#9672; タップして情報を表示</div>
+<div id="grid"></div>
+<div id="detail"></div>
+<div id="empty">上のタイルをタップすると<br>業界インテリジェンスが表示されます</div>
+<script>
+var INTEL=[
+{id:"altos",label:"Altos Labs",kana:"アルトス・ラボ",icon:"🔬",bg:"#1a2a4a",border:"#2a4a8a",active:"#2a5aaa",text:"#7aaaff",overview:"Amazonのジェフ・ベゾスらが出資した細胞リプログラミング企業。2022年に30億ドルを調達。山中伸弥ら世界トップの科学者を年俸100万ドル超で引き抜いた。目標は細胞を若い状態に「リセット」すること。",news:["Altos LabsがNature誌に細胞リプログラミングの部分的成功を発表。マウス実験で平均寿命25%延長を確認。","山中伸弥が顧問を退任。後継者をめぐる内部対立が噂される。","英国・ケンブリッジに新研究拠点を設立。欧州の研究者獲得競争が激化。","競合のRetro Biosciencesが類似特許を申請。特許係争に発展する可能性。"],drama:["科学者を金で囲い込む「知的資本争奪戦」が業界で激化","ベゾスとザッカーバーグが別々の若返り企業に出資——IT億万長者の代理戦争","研究成果をほぼ公開しない秘密主義——「金だけ使って何も出てこない」批判","山中因子の特許をめぐる法的争いがくすぶっている"],hint:"「金で引き抜かれた元同僚」と「残った研究者」の対立。年俸100万ドルの誘惑に揺れる博士研究員キャラ。"},
+{id:"turnbio",label:"Turnbio",kana:"ターンバイオ",icon:"🧴",bg:"#2a1a3a",border:"#5a2a7a",active:"#7a3aaa",text:"#cc88ff",overview:"皮膚細胞のリプログラミングに特化したスタートアップ。老化した皮膚細胞を若い状態に戻す技術を開発中。創傷治癒の加速から始まり、美容医療市場への参入を狙う。市場規模は世界で1000億ドル超。",news:["シリーズBで8500万ドルを調達。評価額が10億ドルを突破しユニコーン入り。","LVMHグループが買収交渉を進めているとの報道。創業者は否定。","FDAが皮膚リプログラミング製品の審査カテゴリを新設。","中国の大手化粧品企業が類似技術の特許を複数申請。模倣品市場が懸念される。"],drama:["「医療か美容か」で引き裂かれる創業者——命を救いたい科学者と儲けたいVCの衝突","LVMH・エスティローダーなど大手化粧品企業が買収を狙っている","「本当に効くのか」臨床データの信憑性をめぐる論争","安価な類似品を中国企業が開発中という噂"],hint:"命を救いたい科学者と、儲けたいVCの価値観衝突シーン。「医療か美容か」で引き裂かれる創業者。"},
+{id:"function",label:"Function Health",kana:"ファンクション・ヘルス",icon:"📊",bg:"#1a3a2a",border:"#2a7a4a",active:"#3aaa6a",text:"#66ddaa",overview:"Peter Attia（長寿医療の世界的権威）が関わる100種類以上の血液検査サービス。年間499ドルで生物学的年齢・臓器の健康状態を可視化。シリコンバレーのエリート層に爆発的人気。個人の健康データを大規模収集している。",news:["会員数が50万人を突破。データベースが医療研究の「金の山」として注目される。","大手保険会社が「保険料算定への活用」を検討中と報道。プライバシー団体が猛反発。","Peter Attiaが「5年以内にAIが個人の死期を90日以内の精度で予測できる」と発言。","競合のInsideTrackerとAncestryが統合サービスを発表。市場競争が激化。"],drama:["集めた血液・遺伝子データは誰のものか——プライバシー問題が浮上","保険会社へのデータ流出リスク（「不健康」と判定された人が不利益を受ける）","「健康格差」の拡大——金持ちだけが自分の死期を知れる社会","製薬会社がこのデータを欲しがって接触してきている"],hint:"「自分の余命を知ってしまった男」というキャラ。データを持つ企業と、それを狙う製薬会社の情報戦。"},
+{id:"xprize",label:"XPRIZE",kana:"エックスプライズ",icon:"🏆",bg:"#3a2a1a",border:"#8a5a2a",active:"#aa7a3a",text:"#ffcc77",overview:"XPRIZE財団が設立した「老化逆転」コンペ。賞金総額1億ドル以上。世界中の研究チームが「筋力・認知・免疫機能を20年若返らせる」技術を競う。2023年に開始、2030年頃に結果が出る。",news:["参加チームが600チームを突破。日本からも東大・理研チームが参加。","中間審査で韓国チームが「認知機能15年若返り」の予備データを提出。世界が注目。","倫理委員会が一部チームの「人体実験手法」に警告。非公認試験が複数国で発覚。","中国政府系チームの参加をめぐり米国側が安全保障上の懸念を表明。排除の動き。"],drama:["賞金1億ドルをめぐる国際的な研究チームの激しい競争","中国・米国・欧州の「老化逆転ナショナリズム」——国家が裏で支援","倫理審査をすり抜けるため審査の緩い国で人体実験を行うチームの疑惑","「勝った技術が世界を支配する」というパワーゲーム"],hint:"競技形式なので「スポーツ漫画」的構図。各国代表チームがそれぞれの思惑を持って戦う群像劇。"},
+{id:"calico",label:"Calico",kana:"キャリコ（グーグル系）",icon:"🌐",bg:"#3a1a1a",border:"#8a2a2a",active:"#aa3a3a",text:"#ff8888",overview:"GoogleのAlphabet傘下の長寿研究企業。2013年設立、AbbVieと合計15億ドルを投資。設立から10年以上経つが目立った成果を出していないと批判される。研究内容を極秘にしており「ステルス企業」と呼ばれる。",news:["AbbVieとの共同研究契約が満了。更新交渉が難航しているとの報道。","主任科学者3名が相次いで退職。うち2名がAltos Labsへ移籍。","Alphabetが決算説明会でCalicoへの言及をゼロに。社内での優先度低下が示唆される。","「裸デバネズミの老化メカニズム解明」の論文を発表。市場は失望。"],drama:["10年・15億ドルを使って成果ゼロ——株主・社会への説明責任問題","Googleの本業（広告）と「死の克服」という崇高な目標の矛盾","研究者が次々と去っていき、内部崩壊の噂","Alphabetの他事業に予算を奪われる内部競争"],hint:"「莫大な金と優秀な人材があっても死に勝てない」という絶望感。Googleという巨人の内部腐敗を描くコーポレートドラマ。"},
+{id:"retro",label:"Retro Biosciences",kana:"レトロ・バイオサイエンシズ",icon:"⚗️",bg:"#1a3a3a",border:"#2a7a7a",active:"#3aaa9a",text:"#66dddd",overview:"OpenAI創業者のSam Altmanが個人で1億8000万ドルを出資した長寿スタートアップ。2021年設立。「人間の健康寿命を10年延ばす」をミッション。細胞自食作用（オートファジー）と血液若返りを研究。",news:["独自開発のオートファジー促進化合物「RB-01」が前臨床試験で良好な結果。","Sam AltmanがRetroとOpenAIを「統合する可能性」に言及。AI×若返りの融合に注目。","投資家向け資料が流出。「2035年までに若返り薬を市販化」という野心的目標が明らかに。","Altos Labsとの人材争奪が激化。上級研究員の引き抜き合戦が続く。"],drama:["AIで世界を変えた男が次は「死」に挑む——メディアの熱狂と批判","1億8000万ドルを個人で出したSam Altmanの「不死願望」の異常性","OpenAIとの利益相反——AI開発と長寿研究、どちらが本命か","「金持ちだけが若返れる」という格差問題への激しい批判"],hint:"AI・若返り・宇宙と全部やろうとする「神になりたい男」の狂気と孤独。"},
+{id:"trend",label:"業界トレンド",kana:"ぎょうかいトレンド",icon:"📡",bg:"#2a2a1a",border:"#7a7a2a",active:"#9a9a3a",text:"#dddd66",overview:"2024〜2025年、リジュビネーション業界への投資は年間60億ドル超に達した。主要トレンドは①細胞リプログラミング②老化細胞除去（セノリティクス）③GLP-1薬の長寿応用④AIによる老化解析⑤エピジェネティック時計。FDAが「老化は病気か」という定義問題に直面中。",news:["FDAが「老化の予防」を正式な適応症として認める審査基準を2025年末までに策定すると発表。","GLP-1薬（オゼンピック）の大規模研究で「心臓老化を5年遅らせる効果」が確認。製薬株が急騰。","中国・深センで「若返り特区」構想。規制を緩和し海外富裕層向けに臨床試験を解禁する計画。","Googleが老化解析AI「DeepAge」を発表。血液検査データだけで生物学的年齢を99%の精度で判定。"],drama:["「老化=病気」とFDAが認定するか否かで市場規模が10倍変わる","GLP-1が老化にも効くと判明——製薬会社が狂喜乱舞","AIが「あなたは何歳で死ぬ」を予測できるようになってきた","中国政府が若返り研究を国家プロジェクトに——米中技術戦争に発展"],hint:"「誰が最初に老化を制するか」という戦いの全体像。ハゲタカ的なプロローグに使える。"},
+{id:"money",label:"投資・資金調達",kana:"とうし・しきんちょうたつ",icon:"💰",bg:"#2a1a2a",border:"#7a2a6a",active:"#9a3a8a",text:"#ff88cc",overview:"2023〜2024年の主要ディール：Altos Labs 30億ドル、BioAge Labs 1.7億ドル、NewLimit（Brian Armstrong個人出資）1億ドル超。Coinbase創業者、Amazon創業者、OpenAI創業者が全員「若返り」に賭けている。",news:["a16zが総額5億ドルの「Bio×Longevityファンド」を組成。業界最大規模。","Coinbase創業者Brian ArmstrongのNewLimitが追加資金調達。累計2億ドル超に。","ソフトバンクの孫正義が「若返りはAIの次の革命」と発言。日本企業への投資を示唆。","Vision Fundが若返りスタートアップへの10億ドル投資を検討中と報道。バブルを懸念する声も。"],drama:["仮想通貨で儲けた億万長者が若返り研究に流入——「暗号通貨→不死」という資金の流れ","「死にたくない金持ち」が作り出すバブル——実態のない企業への過剰投資","a16zがLongevityファンドを設立——VCが「老化産業」を支配しようとしている","投資回収の時間軸問題——若返り技術は20年後、VCは5年で回収したい"],hint:"「若返りバブルが弾けた後」を描く逆張り視点。信じた投資家・研究者・患者が全員裏切られる瞬間。"}
 ];
 
-function openLink(query) {}
+var selected=null;
 
-export default function App() {
-const [selected, setSelected] = useState(null);
-const data = selected ? INTEL[selected] : null;
-const entries = Object.entries(INTEL);
-
-return (
-<>
-<style>{`@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;700&display=swap'); *{box-sizing:border-box;margin:0;padding:0} body{background:#f0f0f0} ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#bbb} @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}} @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}`}</style>
-
-```
-  <div style={{minHeight:"100dvh",background:"#eef0f4",fontFamily:"'Noto Sans JP',sans-serif",color:"#111"}}>
-
-    {/* HEADER */}
-    <div style={{position:"sticky",top:0,zIndex:50,background:"#1a1a2a",padding:"14px 16px",display:"flex",justifyContent:"space-between",alignItems:"center",boxShadow:"0 2px 12px rgba(0,0,0,0.4)"}}>
-      <div>
-        <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:26,letterSpacing:4,color:"#fff"}}>REJUVENATION WAR</div>
-        <div style={{fontSize:12,color:"#8888aa",letterSpacing:3}}>LONGEVITY INTELLIGENCE</div>
-      </div>
-      <div style={{display:"flex",alignItems:"center",gap:6}}>
-        <div style={{width:9,height:9,borderRadius:"50%",background:"#4af",animation:"pulse 2s infinite"}}/>
-        <span style={{fontSize:12,color:"#8888aa",letterSpacing:2}}>LIVE</span>
-      </div>
-    </div>
-
-    {/* GRID */}
-    <div style={{padding:"16px 12px 8px"}}>
-      <div style={{fontSize:14,color:"#666",letterSpacing:1,marginBottom:14,textAlign:"center"}}>◈ タップして情報を表示</div>
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
-        {entries.map(([id, t], i) => {
-          const c = TILE_COLORS[i % TILE_COLORS.length];
-          const isActive = selected === id;
-          return (
-            <button key={id} onClick={() => setSelected(isActive ? null : id)} style={{
-              background: isActive ? c.active : c.bg,
-              border: `2px solid ${isActive ? c.text : c.border}`,
-              borderRadius: 12,
-              padding: "20px 16px",
-              cursor: "pointer",
-              textAlign: "left",
-              transition: "all .15s",
-              boxShadow: isActive ? `0 4px 20px ${c.text}44` : "0 2px 8px rgba(0,0,0,0.2)",
-            }}>
-              <div style={{fontSize:34,marginBottom:10}}>{t.icon}</div>
-              <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:20,letterSpacing:1,color:c.text,lineHeight:1.2,marginBottom:6}}>
-                {t.label}
-              </div>
-              <div style={{fontSize:14,color:isActive?"#ffffffcc":"#ffffff88",lineHeight:1.5}}>
-                （{t.kana}）
-              </div>
-            </button>
-          );
-        })}
-      </div>
-    </div>
-
-    {/* DETAIL */}
-    {data && (() => {
-      const idx = entries.findIndex(([id]) => id === selected);
-      const c = TILE_COLORS[idx % TILE_COLORS.length];
-      return (
-        <div style={{padding:"16px 12px 60px",animation:"fadeUp .2s ease forwards"}}>
-
-          {/* タイトル */}
-          <div style={{background:c.active,borderRadius:10,padding:"14px 16px",marginBottom:14,boxShadow:`0 4px 16px ${c.text}44`}}>
-            <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:22,letterSpacing:2,color:"#fff"}}>
-              {data.icon} {data.label}
-            </div>
-            <div style={{fontSize:15,color:"#ffffffcc",marginTop:2}}>（{data.kana}）</div>
-          </div>
-
-          {/* 概要 */}
-          <Card title="概要" color={c.text} bg="#fff">
-            <div style={{fontSize:17,color:"#222",lineHeight:2.1}}>{data.overview}</div>
-          </Card>
-
-          {/* ニュース */}
-          <Card title="最新ニュース" color="#e67e22" bg="#fff">
-            {data.news.map((n,i) => (
-              <div key={i} onClick={() => openLink(n.text)} style={{
-                display:"flex",gap:12,marginBottom:14,alignItems:"flex-start",
-                background:"#fff8f0",border:"2px solid #f0c080",
-                borderLeft:"5px solid #e67e22",
-                borderRadius:8,padding:"13px 14px",
-              }}>
-                <span style={{color:"#e67e22",flexShrink:0,fontSize:20,marginTop:1}}>◆</span>
-                <div>
-                  <div style={{fontSize:17,color:"#333",lineHeight:2}}>{n.text}</div>
-                  <div style={{fontSize:13,color:"#aa7733",marginTop:5}}></div>
-                </div>
-              </div>
-            ))}
-          </Card>
-
-          {/* ドラマ */}
-          <Card title="ドラマになる要素" color="#e74c3c" bg="#fff">
-            {data.drama.map((d,i) => (
-              <div key={i} style={{display:"flex",gap:12,marginBottom:14,alignItems:"flex-start"}}>
-                <span style={{color:"#e74c3c",flexShrink:0,fontSize:20,marginTop:1}}>▶</span>
-                <div style={{fontSize:17,color:"#333",lineHeight:2}}>{d}</div>
-              </div>
-            ))}
-          </Card>
-
-          {/* ヒント */}
-          <Card title="漫画キャラ・シーンのヒント" color="#27ae60" bg="#f0fff4">
-            <div style={{fontSize:17,color:"#1a4a2a",lineHeight:2.1}}>{data.hint}</div>
-          </Card>
-
-        </div>
-      );
-    })()}
-
-    {!data && (
-      <div style={{padding:"50px 24px",textAlign:"center",color:"#aaa",fontSize:16,letterSpacing:1,lineHeight:3}}>
-        上のタイルをタップすると<br/>業界インテリジェンスが表示されます
-      </div>
-    )}
-  </div>
-</>
-```
-
-);
+function buildGrid(){
+var g=document.getElementById(‘grid’);
+g.innerHTML=’’;
+INTEL.forEach(function(t){
+var el=document.createElement(‘div’);
+el.className=‘tile’;
+var on=selected===t.id;
+el.style.background=on?t.active:t.bg;
+el.style.borderColor=on?t.text:t.border;
+el.style.boxShadow=on?‘0 4px 20px ‘+t.text+‘44’:‘0 2px 8px rgba(0,0,0,.2)’;
+el.innerHTML=’<div class="tile-icon">’+t.icon+’</div>’+
+‘<div class="tile-name" style="color:'+t.text+'">’+t.label+’</div>’+
+‘<div class="tile-kana" style="color:'+(on?'rgba(255,255,255,.85)':'rgba(255,255,255,.5)')+'">（’+t.kana+’）</div>’;
+el.onclick=function(){
+selected=(selected===t.id)?null:t.id;
+buildGrid();buildDetail();
+};
+g.appendChild(el);
+});
 }
 
-function Card({ title, color, bg, children }) {
-return (
-<div style={{background:bg,borderRadius:10,border:`1px solid ${color}44`,borderLeft:`5px solid ${color}`,padding:“16px”,marginBottom:14,boxShadow:“0 2px 8px rgba(0,0,0,0.07)”}}>
-<div style={{fontFamily:”‘Bebas Neue’,sans-serif”,fontSize:17,letterSpacing:2,color:color,marginBottom:14}}>{title}</div>
-{children}
-</div>
-);
+function buildDetail(){
+var d=document.getElementById(‘detail’);
+var e=document.getElementById(‘empty’);
+if(!selected){d.style.display=‘none’;e.style.display=‘block’;return;}
+var t=INTEL.find(function(x){return x.id===selected;});
+e.style.display=‘none’;
+d.style.display=‘block’;
+d.style.animation=‘fadeUp .2s ease forwards’;
+d.innerHTML=
+‘<div class="detail-title" style="background:'+t.active+';box-shadow:0 4px 16px '+t.text+'44;margin-top:4px">’+
+‘<div class="detail-title-name">’+t.icon+’ ‘+t.label+’</div>’+
+‘<div class="detail-title-kana">（’+t.kana+’）</div>’+
+‘</div>’+
+‘<div class="card" style="background:#fff;border-left-color:'+t.text+'">’+
+‘<div class="card-title" style="color:'+t.text+';border-left-color:'+t.text+'">概要</div>’+
+‘<div class="card-text" style="color:#222">’+t.overview+’</div>’+
+‘</div>’+
+‘<div class="card" style="background:#fff;border-left-color:#e67e22">’+
+‘<div class="card-title" style="color:#e67e22;border-left-color:#e67e22">最新ニュース</div>’+
+t.news.map(function(n){return ‘<div class="news-item"><span class="news-bullet">◆</span><div class="news-text">’+n+’</div></div>’;}).join(’’)+
+‘</div>’+
+‘<div class="card" style="background:#fff;border-left-color:#e74c3c">’+
+‘<div class="card-title" style="color:#e74c3c;border-left-color:#e74c3c">ドラマになる要素</div>’+
+t.drama.map(function(d){return ‘<div class="drama-item"><span class="drama-bullet">▶</span><div class="drama-text">’+d+’</div></div>’;}).join(’’)+
+‘</div>’+
+‘<div class="card" style="background:#f0fff4;border-left-color:#27ae60">’+
+‘<div class="card-title" style="color:#27ae60;border-left-color:#27ae60">漫画キャラ・シーンのヒント</div>’+
+‘<div class="card-text" style="color:#1a4a2a">’+t.hint+’</div>’+
+‘</div>’;
+d.scrollIntoView({behavior:‘smooth’,block:‘start’});
 }
+
+buildGrid();
+</script>
+
+</body>
+</html>
