@@ -9,16 +9,17 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#eef0f4;font-family:'Noto Sans JP',sans-serif;-webkit-text-size-adjust:100%}
-#hdr{position:sticky;top:0;z-index:50;background:#1a1a2a;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 12px rgba(0,0,0,.4)}
-#hdr h1{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:4px;color:#fff}
-#hdr p{font-size:11px;color:#8888aa;letter-spacing:3px}
-.dot{width:9px;height:9px;border-radius:50%;background:#4af;animation:blink 2s infinite;flex-shrink:0}
+#hdr{position:sticky;top:0;z-index:50;background:#1a1a2a;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 12px rgba(0,0,0,.4);gap:8px}
+#hdr h1{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#fff;white-space:nowrap}
+#hdr p{font-size:10px;color:#8888aa;letter-spacing:2px}
+.dot{width:8px;height:8px;border-radius:50%;background:#4af;animation:blink 2s infinite;flex-shrink:0}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+#trans-btn{background:#2a6a2a;border:none;color:#7fff7f;font-size:11px;padding:7px 11px;border-radius:6px;cursor:pointer;white-space:nowrap;letter-spacing:1px;font-family:'Noto Sans JP',sans-serif;flex-shrink:0}
 #sub{padding:12px;font-size:14px;color:#666;text-align:center}
 #grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 12px 12px}
-.tile{border-radius:12px;padding:20px 14px;cursor:pointer;text-align:left;border:2px solid;transition:all .15s}
-.tile .ti{font-size:32px;margin-bottom:8px}
-.tile .tn{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;line-height:1.2;margin-bottom:5px}
+.tile{border-radius:12px;padding:18px 14px;cursor:pointer;text-align:left;border:2px solid;transition:all .15s}
+.tile .ti{font-size:30px;margin-bottom:8px}
+.tile .tn{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;line-height:1.2;margin-bottom:4px}
 .tile .tk{font-size:13px;opacity:.7}
 #det{padding:0 12px 60px;display:none}
 #emp{padding:60px 20px;text-align:center;color:#bbb;font-size:15px;line-height:3}
@@ -26,30 +27,76 @@ body{background:#eef0f4;font-family:'Noto Sans JP',sans-serif;-webkit-text-size-
 .dtop h2{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:#fff}
 .dtop p{font-size:14px;color:rgba(255,255,255,.75);margin-top:3px}
 .card{background:#fff;border-radius:10px;padding:16px;margin-bottom:12px;border-left:5px solid #ccc;box-shadow:0 2px 6px rgba(0,0,0,.06)}
-.ctitle{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;margin-bottom:12px;padding-left:8px;border-left:3px solid}
-.ctext{font-size:17px;line-height:2.1;color:#222}
-.ditem{display:flex;gap:10px;margin-bottom:12px;align-items:flex-start}
-.ditem .db{color:#e74c3c;font-size:18px;flex-shrink:0;margin-top:2px}
-.ditem .dt{font-size:17px;color:#333;line-height:1.9}
-.link-btn{display:flex;align-items:center;gap:10px;background:#fff;border-radius:10px;padding:14px 16px;margin-bottom:10px;border:2px solid #ddd;text-decoration:none;box-shadow:0 2px 6px rgba(0,0,0,.06);-webkit-tap-highlight-color:rgba(0,0,0,.1)}
-.link-btn:active{background:#f5f5f5}
-.link-icon{font-size:22px;flex-shrink:0}
-.link-body .ln{font-size:16px;color:#222;font-weight:700;line-height:1.4}
-.link-body .ld{font-size:13px;color:#888;margin-top:3px}
-.link-arrow{margin-left:auto;font-size:20px;color:#bbb;flex-shrink:0}
+.ctitle{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;margin-bottom:12px;padding-left:8px;border-left:3px solid}
+.ctext{font-size:16px;line-height:2.1;color:#222}
+.ditem{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start}
+.ditem .db{color:#e74c3c;font-size:16px;flex-shrink:0;margin-top:3px}
+.ditem .dt{font-size:16px;color:#333;line-height:1.9}
+/* リンクボタン */
+.link-btn{display:flex;align-items:center;gap:10px;background:#f8f8f8;border-radius:8px;padding:12px 14px;margin-bottom:8px;border:1px solid #e0e0e0;text-decoration:none;-webkit-tap-highlight-color:rgba(0,0,0,.1)}
+.link-btn:active{background:#efefef}
+.link-icon{font-size:20px;flex-shrink:0}
+.link-body .ln{font-size:15px;color:#222;font-weight:700;line-height:1.4}
+.link-body .ld{font-size:12px;color:#888;margin-top:2px}
+.link-arrow{margin-left:auto;font-size:18px;color:#bbb;flex-shrink:0}
+/* RSSニュース */
+.news-item{display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid #f0f0f0;text-decoration:none;-webkit-tap-highlight-color:rgba(230,126,34,.15)}
+.news-item:last-child{border-bottom:none;padding-bottom:0}
+.news-item:active .news-title{color:#e67e22}
+.news-dot{color:#e67e22;font-size:16px;flex-shrink:0;margin-top:3px}
+.news-body .news-title{font-size:15px;color:#222;line-height:1.8;font-weight:700}
+.news-body .news-src{font-size:11px;color:#aaa;margin-top:3px;letter-spacing:1px}
+.news-loading{font-size:13px;color:#aaa;padding:10px 0;letter-spacing:1px}
+.news-error{font-size:12px;color:#e74c3c;padding:8px 0}
 </style>
 </head>
 <body>
+
 <div id="hdr">
-  <div><h1>REJUVENATION WAR</h1><p>LONGEVITY INTELLIGENCE</p></div>
-  <div style="display:flex;align-items:center;gap:7px"><div class="dot"></div><span style="font-size:11px;color:#8888aa;letter-spacing:2px">LIVE</span></div>
+  <div>
+    <h1>REJUVENATION WAR</h1>
+    <p>LONGEVITY INTELLIGENCE</p>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+    <button id="trans-btn" onclick="toggleTranslate()">🌐 日本語訳</button>
+    <div class="dot"></div>
+  </div>
 </div>
+
 <div id="sub">&#9670; タップして情報を表示</div>
 <div id="grid"></div>
 <div id="det"></div>
 <div id="emp">上のタイルをタップすると<br>業界インテリジェンスが表示されます</div>
 
 <script>
+// ── 翻訳バー ──
+var translated = false;
+function toggleTranslate(){
+  if(!translated){
+    var s = document.createElement('script');
+    s.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateInit';
+    document.head.appendChild(s);
+    window.googleTranslateInit = function(){
+      new google.translate.TranslateElement({
+        pageLanguage:'en', includedLanguages:'ja',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false
+      }, 'gt-root');
+      setTimeout(function(){
+        var sel = document.querySelector('.goog-te-combo');
+        if(sel){ sel.value='ja'; sel.dispatchEvent(new Event('change')); }
+      }, 800);
+    };
+    var div = document.createElement('div');
+    div.id = 'gt-root';
+    div.style.display='none';
+    document.body.appendChild(div);
+    document.getElementById('trans-btn').textContent = '✓ 翻訳中';
+    translated = true;
+  }
+}
+
+// ── データ ──
 var DATA = [
   {id:"altos",label:"Altos Labs",kana:"アルトス・ラボ",icon:"🔬",
    bg:"#1a2a4a",bc:"#2a4a8a",ac:"#2a5aaa",tc:"#7aaaff",
@@ -57,84 +104,95 @@ var DATA = [
    dr:["科学者を高額報酬で引き抜く知的資本争奪戦が業界で激化","ベゾスとザッカーバーグが別々の若返り企業に出資——IT億万長者の代理戦争","研究成果をほぼ公開しない秘密主義への批判","山中因子の特許をめぐる法的争いがくすぶっている"],
    ht:"年俸100万ドルの誘惑に揺れる博士研究員。金で引き抜かれた元同僚と残った研究者の対立。",
    links:[
-     {icon:"🏢",name:"Altos Labs 公式サイト",desc:"最新の研究発表・採用情報",url:"https://altoslabs.com"},
-     {icon:"📰",name:"Longevity Technology",desc:"Altos Labs最新ニュース",url:"https://longevity.technology/?s=altos+labs"},
-     {icon:"🔬",name:"Nature / Altos Labs論文",desc:"学術論文を検索",url:"https://www.nature.com/search?q=altos+labs"}
-   ]},
+     {icon:"🏢",name:"Altos Labs 公式",url:"https://altoslabs.com",desc:"研究発表・採用情報"},
+     {icon:"📰",name:"Longevity Technology",url:"https://longevity.technology",desc:"業界専門メディア"}
+   ],
+   rss:"https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Flongevity.technology%2Ffeed%2F&count=8&q=altos+labs"
+  },
   {id:"turnbio",label:"Turnbio",kana:"ターンバイオ",icon:"🧴",
    bg:"#2a1a3a",bc:"#5a2a7a",ac:"#7a3aaa",tc:"#cc88ff",
    ov:"皮膚細胞のリプログラミングに特化したスタートアップ。老化した皮膚細胞を若い状態に戻す技術を研究開発中。創傷治癒の加速と美容医療市場への参入を目指す。",
-   dr:["医療か美容かで引き裂かれる創業者——命を救いたい科学者と儲けたいVCの衝突","大手化粧品企業による買収観測","本当に効くのか臨床データの信憑性をめぐる論争","中国企業による類似技術開発の動き"],
+   dr:["医療か美容かで引き裂かれる創業者——命を救いたい科学者と儲けたいVCの衝突","大手化粧品企業による買収観測","臨床データの信憑性をめぐる論争","中国企業による類似技術開発の動き"],
    ht:"命を救いたい科学者と儲けたいVCの価値観衝突。医療か美容かで引き裂かれる創業者。",
    links:[
-     {icon:"🏢",name:"Turnbio 公式サイト",desc:"企業概要・研究内容",url:"https://www.turnbio.com"},
-     {icon:"📰",name:"Longevity Technology",desc:"皮膚リプログラミング最新ニュース",url:"https://longevity.technology/?s=skin+reprogramming"},
-     {icon:"📰",name:"LEAF Science",desc:"再生医療最新記事",url:"https://www.leafscience.org/?s=skin+aging"}
-   ]},
+     {icon:"🏢",name:"Turnbio 公式",url:"https://www.turnbio.com",desc:"企業概要・研究内容"},
+     {icon:"📰",name:"Longevity Technology",url:"https://longevity.technology",desc:"業界専門メディア"}
+   ],
+   rss:"https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Flongevity.technology%2Ffeed%2F&count=8"
+  },
   {id:"func",label:"Function Health",kana:"ファンクション・ヘルス",icon:"📊",
    bg:"#1a3a2a",bc:"#2a7a4a",ac:"#3aaa6a",tc:"#66ddaa",
    ov:"医師Peter Attiaが関わる血液検査サービス。100種類以上のバイオマーカーを測定し生物学的年齢を可視化。年間499ドルでシリコンバレーのエリート層に人気。",
-   dr:["集めた健康データは誰のものか——プライバシー問題","保険会社へのデータ流出リスク","金持ちだけが自分の状態を知れる健康格差の拡大","製薬会社によるデータ買収の可能性"],
+   dr:["集めた健康データは誰のものか——プライバシー問題","保険会社へのデータ流出リスク","金持ちだけが自分の状態を知れる健康格差","製薬会社によるデータ買収の可能性"],
    ht:"自分の余命を知ってしまった男。データを持つ企業と、それを狙う製薬会社の情報戦。",
    links:[
-     {icon:"🏢",name:"Function Health 公式",desc:"サービス内容・料金",url:"https://www.functionhealth.com"},
-     {icon:"🎙",name:"Peter Attia MD",desc:"長寿医療の最前線情報",url:"https://peterattiamd.com/articles/"},
-     {icon:"📰",name:"Longevity Technology",desc:"バイオマーカー最新ニュース",url:"https://longevity.technology/?s=function+health"}
-   ]},
+     {icon:"🏢",name:"Function Health 公式",url:"https://www.functionhealth.com",desc:"サービス内容・料金"},
+     {icon:"🎙",name:"Peter Attia MD",url:"https://peterattiamd.com/articles/",desc:"長寿医療の最前線"}
+   ],
+   rss:"https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fpeterattiamd.com%2Ffeed%2F&count=6"
+  },
   {id:"xp",label:"XPRIZE",kana:"エックスプライズ",icon:"🏆",
    bg:"#3a2a1a",bc:"#8a5a2a",ac:"#aa7a3a",tc:"#ffcc77",
    ov:"XPRIZE財団が設立した老化逆転コンペティション。賞金総額1億ドル以上。筋力・認知・免疫機能を若返らせる技術を世界中のチームが競う。2023年開始。",
    dr:["賞金1億ドルをめぐる国際的な研究チームの競争","中国・米国・欧州の老化逆転ナショナリズム","倫理審査をめぐる各国チームの綱引き","勝った技術が世界を支配するパワーゲーム"],
    ht:"各国代表チームがそれぞれの思惑を持って戦う群像劇。スポーツ漫画的な構図が使える。",
    links:[
-     {icon:"🏆",name:"XPRIZE Healthspan 公式",desc:"コンペ詳細・参加チーム",url:"https://www.xprize.org/prizes/healthspan"},
-     {icon:"📰",name:"Longevity Technology",desc:"XPRIZE最新ニュース",url:"https://longevity.technology/?s=xprize"},
-     {icon:"📰",name:"LEAF Science",desc:"老化逆転研究の最前線",url:"https://www.leafscience.org"}
-   ]},
+     {icon:"🏆",name:"XPRIZE Healthspan 公式",url:"https://www.xprize.org/prizes/healthspan",desc:"コンペ詳細・参加チーム"},
+     {icon:"📰",name:"LEAF Science",url:"https://www.leafscience.org",desc:"老化研究科学ニュース"}
+   ],
+   rss:"https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.leafscience.org%2Ffeed%2F&count=8"
+  },
   {id:"cal",label:"Calico",kana:"キャリコ（グーグル系）",icon:"🌐",
    bg:"#3a1a1a",bc:"#8a2a2a",ac:"#aa3a3a",tc:"#ff8888",
    ov:"Google Alphabet傘下の長寿研究企業。2013年設立。AbbVieとの共同研究に合計15億ドル以上を投資。設立10年以上が経過するが研究内容を極秘にしており成果が見えにくい。",
    dr:["15億ドルを使って成果が見えない——株主への説明責任問題","Googleの本業と死の克服という崇高な目標の矛盾","ステルス運営への批判と研究者の流出","Alphabetの他事業との予算競争"],
    ht:"莫大な金と優秀な人材があっても死に勝てないという絶望感。巨人の内部腐敗を描くコーポレートドラマ。",
    links:[
-     {icon:"🏢",name:"Calico Labs 公式",desc:"企業概要・研究発表",url:"https://www.calicolabs.com"},
-     {icon:"📰",name:"Longevity Technology",desc:"Calico最新ニュース",url:"https://longevity.technology/?s=calico"},
-     {icon:"🔬",name:"PubMed / Calico論文",desc:"Calico発表論文を検索",url:"https://pubmed.ncbi.nlm.nih.gov/?term=calico+aging"}
-   ]},
+     {icon:"🏢",name:"Calico Labs 公式",url:"https://www.calicolabs.com",desc:"企業概要・研究発表"},
+     {icon:"📰",name:"Longevity Technology",url:"https://longevity.technology",desc:"業界専門メディア"}
+   ],
+   rss:"https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Flongevity.technology%2Ffeed%2F&count=8"
+  },
   {id:"ret",label:"Retro Biosciences",kana:"レトロ・バイオサイエンシズ",icon:"⚗️",
    bg:"#1a3a3a",bc:"#2a7a7a",ac:"#3aaa9a",tc:"#66dddd",
    ov:"OpenAI共同創業者のSam Altmanが個人で1億8000万ドルを出資した長寿スタートアップ。2021年設立。健康寿命を10年延ばすことをミッションにオートファジーと細胞リプログラミングを研究。",
    dr:["AIで世界を変えた男が次は死に挑む","1億8000万ドルを個人出資したSam Altmanの不死への執着","OpenAIとの利益相反——AI開発と長寿研究の両立","金持ちだけが若返れるという格差批判"],
    ht:"AI・若返り・宇宙と全部やろうとする神になりたい男の狂気と孤独。",
    links:[
-     {icon:"🏢",name:"Retro Biosciences 公式",desc:"企業概要・研究内容",url:"https://www.retrobiosciences.com"},
-     {icon:"📰",name:"Longevity Technology",desc:"Retro最新ニュース",url:"https://longevity.technology/?s=retro+biosciences"},
-     {icon:"📰",name:"LEAF Science",desc:"オートファジー研究最前線",url:"https://www.leafscience.org/?s=autophagy"}
-   ]},
+     {icon:"🏢",name:"Retro Biosciences 公式",url:"https://www.retrobiosciences.com",desc:"企業概要・研究内容"},
+     {icon:"📰",name:"Longevity Technology",url:"https://longevity.technology",desc:"業界専門メディア"}
+   ],
+   rss:"https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Flongevity.technology%2Ffeed%2F&count=8"
+  },
   {id:"tr",label:"業界トレンド",kana:"ぎょうかいトレンド",icon:"📡",
    bg:"#2a2a1a",bc:"#7a7a2a",ac:"#9a9a3a",tc:"#dddd66",
-   ov:"2020年代のリジュビネーション業界は急拡大中。細胞リプログラミング・老化細胞除去（セノリティクス）・GLP-1薬の長寿応用・AIによる老化解析・エピジェネティック時計が主要トレンド。FDAの規制定義が業界の行方を左右する。",
-   dr:["老化=病気とFDAが認定するか否かで市場規模が激変","GLP-1薬（オゼンピック）の長寿への応用が注目される","AIが生物学的年齢を高精度で測定できるようになった","中国政府が国家プロジェクトとして若返り研究を推進——米中技術戦争に発展"],
+   ov:"2020年代のリジュビネーション業界は急拡大中。細胞リプログラミング・老化細胞除去（セノリティクス）・GLP-1薬の長寿応用・AIによる老化解析・エピジェネティック時計が主要トレンド。",
+   dr:["老化=病気とFDAが認定するか否かで市場規模が激変","GLP-1薬（オゼンピック）の長寿への応用が注目","AIが生物学的年齢を高精度で測定できるようになった","中国政府が国家プロジェクトとして若返り研究を推進"],
    ht:"誰が最初に老化を制するかという戦いの全体像。ハゲタカ的なプロローグに使える。",
    links:[
-     {icon:"📰",name:"Longevity Technology",desc:"業界ニュースの専門メディア",url:"https://longevity.technology"},
-     {icon:"📰",name:"LEAF Science",desc:"老化研究の科学ニュース",url:"https://www.leafscience.org"},
-     {icon:"📰",name:"Fight Aging!",desc:"老化研究の最新動向（英語）",url:"https://www.fightaging.org"}
-   ]},
+     {icon:"📰",name:"Longevity Technology",url:"https://longevity.technology",desc:"業界ニュース専門メディア"},
+     {icon:"📰",name:"LEAF Science",url:"https://www.leafscience.org",desc:"老化研究の科学ニュース"},
+     {icon:"📰",name:"Fight Aging!",url:"https://www.fightaging.org",desc:"老化研究の最新動向（英語）"}
+   ],
+   rss:"https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Flongevity.technology%2Ffeed%2F&count=10"
+  },
   {id:"mn",label:"投資・資金調達",kana:"とうし・しきんちょうたつ",icon:"💰",
    bg:"#2a1a2a",bc:"#7a2a6a",ac:"#9a3a8a",tc:"#ff88cc",
    ov:"Longevity分野への投資が急増。Altos Labs約30億ドル、Sam Altman個人1億8000万ドルなど大型案件が相次ぐ。Amazon・Google・OpenAIの創業者が全員この分野に資金を投じている。",
    dr:["仮想通貨で稼いだ億万長者が若返り研究に資金を投入","死にたくない金持ちが作るバブルへの懸念","VCが老化産業の覇権を狙っている","投資回収の時間軸問題——技術実現は20年後、VCは5年で回収したい"],
    ht:"若返りバブルが弾けた後の逆張り視点。信じた投資家・研究者・患者が全員裏切られる瞬間。",
    links:[
-     {icon:"📰",name:"Longevity Technology",desc:"投資・資金調達ニュース",url:"https://longevity.technology/?s=funding"},
-     {icon:"💼",name:"a16z Bio",desc:"a16zのバイオ投資情報",url:"https://a16z.com/bio"},
-     {icon:"📰",name:"LEAF Science",desc:"Longevity投資の最新動向",url:"https://www.leafscience.org/?s=funding"}
-   ]}
+     {icon:"📰",name:"Longevity Technology",url:"https://longevity.technology",desc:"投資・資金調達ニュース"},
+     {icon:"💼",name:"a16z Bio",url:"https://a16z.com/bio",desc:"a16zのバイオ投資情報"}
+   ],
+   rss:"https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Flongevity.technology%2Ffeed%2F&count=10"
+  }
 ];
 
 var sel = null;
+var rssCache = {};
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function stripHtml(s){ return (s||'').replace(/<[^>]*>/g,'').replace(/&[^;]+;/g,' ').trim(); }
 
 function renderGrid(){
   var g=document.getElementById('grid');
@@ -170,8 +228,7 @@ function renderDetail(){
     return '<a class="link-btn" href="'+lk.url+'" target="_blank" rel="noreferrer">'
       +'<span class="link-icon">'+lk.icon+'</span>'
       +'<div class="link-body"><div class="ln">'+esc(lk.name)+'</div><div class="ld">'+esc(lk.desc)+'</div></div>'
-      +'<span class="link-arrow">&#8250;</span>'
-      +'</a>';
+      +'<span class="link-arrow">&#8250;</span></a>';
   }).join('');
 
   det.innerHTML=
@@ -183,6 +240,10 @@ function renderDetail(){
       +'<div class="ctitle" style="color:'+t.tc+';border-left-color:'+t.tc+'">概要</div>'
       +'<div class="ctext">'+esc(t.ov)+'</div>'
     +'</div>'
+    +'<div class="card" style="border-left-color:#e67e22" id="rss-card-'+t.id+'">'
+      +'<div class="ctitle" style="color:#e67e22;border-left-color:#e67e22">最新ニュース</div>'
+      +'<div class="news-loading" id="rss-'+t.id+'">&#9670; 記事を読み込み中...</div>'
+    +'</div>'
     +'<div class="card" style="border-left-color:#e74c3c">'
       +'<div class="ctitle" style="color:#e74c3c;border-left-color:#e74c3c">ドラマになる要素</div>'
       +drHTML
@@ -192,11 +253,48 @@ function renderDetail(){
       +'<div class="ctext" style="color:#1a4a2a">'+esc(t.ht)+'</div>'
     +'</div>'
     +'<div class="card" style="border-left-color:#3498db">'
-      +'<div class="ctitle" style="color:#3498db;border-left-color:#3498db">最新記事を読む</div>'
+      +'<div class="ctitle" style="color:#3498db;border-left-color:#3498db">関連サイト</div>'
       +linkHTML
     +'</div>';
 
   setTimeout(function(){ det.scrollIntoView({behavior:'smooth',block:'start'}); },50);
+  loadRSS(t);
+}
+
+function loadRSS(t){
+  if(rssCache[t.id]){ renderRSS(t.id, rssCache[t.id]); return; }
+  fetch(t.rss)
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      var items = (d.items||[]).slice(0,6);
+      rssCache[t.id] = items;
+      renderRSS(t.id, items);
+    })
+    .catch(function(){
+      var el = document.getElementById('rss-'+t.id);
+      if(el) el.innerHTML='<div class="news-error">記事の読み込みに失敗しました</div>';
+    });
+}
+
+function renderRSS(id, items){
+  var el = document.getElementById('rss-'+id);
+  if(!el) return;
+  if(!items || items.length===0){
+    el.innerHTML='<div class="news-error">記事が見つかりませんでした</div>';
+    return;
+  }
+  el.innerHTML = items.map(function(item){
+    var title = stripHtml(item.title||'');
+    var src   = item.author || (item.link||'').replace(/https?:\/\//,'').split('/')[0];
+    var url   = item.link || '#';
+    return '<a class="news-item" href="'+esc(url)+'" target="_blank" rel="noreferrer">'
+      +'<span class="news-dot">&#9670;</span>'
+      +'<div class="news-body">'
+        +'<div class="news-title">'+esc(title)+'</div>'
+        +'<div class="news-src">'+esc(src)+'</div>'
+      +'</div>'
+      +'</a>';
+  }).join('');
 }
 
 renderGrid();
